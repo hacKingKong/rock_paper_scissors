@@ -1,0 +1,90 @@
+<script>
+    //Math.random generates a random value between 0 and 1. Times 3 and rounded down (.floor) gives 3 values.
+    function computerChoice() {
+        let randomNumber = (Math.floor(Math.random() * 3));
+    
+        if (randomNumber == 0) {
+            return "rock";
+        }
+        else if (randomNumber == 1) {
+            return "paper";
+        }
+        else {
+            return "scissors";
+        }
+    }
+
+    //promps the player for thier choice. Will not advance unless they enter a valid choice.
+    function playerChoice() {
+        do { 
+            playerSelection = prompt("Pick Rock, Paper or Scissors");
+            playerSelection = playerSelection.toUpperCase();
+        }
+        while (playerSelection != "ROCK" && playerSelection != "PAPER" && playerSelection != "SCISSORS") {
+        }
+        return playerSelection;
+    }
+    
+    //a single round. Makes the choices uppercase for simpler comparisons, and compares the choices to determine the winner and increase a score.
+    function playRound(playerSelection, computerSelection) {
+        playerSelection = playerChoice();
+        computerSelection = computerChoice();
+        playerSelection = playerSelection.toUpperCase();
+        computerSelection = computerSelection.toUpperCase();
+       
+        console.log(" You picked " + playerSelection);
+        console.log(" Computer picked " + computerSelection);
+        if (playerSelection == "ROCK" && computerSelection == "SCISSORS") {
+            playerScore++;
+            return " You win! Rock beats Scissors";
+        }
+        else if (playerSelection == "ROCK" && computerSelection == "PAPER") {
+            computerScore++;
+            return " You lose! Paper beats Rock";
+        }
+        else if (playerSelection == "PAPER" && computerSelection == "ROCK") {
+            playerScore++;
+            return " You win! Paper beats Rock";
+        }
+        else if (playerSelection == "PAPER" && computerSelection == "SCISSORS") {
+            computerScore++;
+            return " You lose! Scissors beats Paper";
+        }
+        else if (playerSelection == "SCISSORS" && computerSelection == "PAPER") {
+            playerScore++;
+            return " You win! Scissors beats Paper";
+        }
+        else if (playerSelection == "SCISSORS" && computerSelection == "ROCK") {
+            computerScore++;
+            return " You lose! Rock beats Scissors";
+        }
+        else {
+            return " It's a draw!"
+        }
+    }
+
+    //a five round game. Compares scores afterwards to determine the overall winner.
+    function game() {
+        let i;
+        for (i = 1; i < 6; i++) {
+            console.log("Round " + i);
+            console.log(playRound(playerSelection, computerSelection));
+            console.log("SCORE You: " + playerScore + " Computer: " + computerScore);
+        }
+        if (playerScore > computerScore) {
+            console.log("You win!");
+        }
+        else if (playerScore < computerScore) {
+            console.log("You lose!");
+        }
+        else {
+            console.log("It's a draw!");
+        }
+    }
+
+    let playerScore = 0;
+    let computerScore = 0;
+    let playerSelection;
+    let computerSelection;
+    game();
+</script>
